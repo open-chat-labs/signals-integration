@@ -6,6 +6,7 @@ import { powderBlue, red, yellow } from "./colors";
 
 function App() {
   const [area, setArea] = React.useState("home");
+  const [user, setUser] = React.useState<string | undefined>(undefined);
   return (
     <>
       <div className="header">
@@ -59,6 +60,26 @@ function App() {
               text={"Chat"}
             ></Button>
           </div>
+          <div className="nav-btn">
+            <Button
+              onClick={() => {
+                setUser("cinef-v4aaa-aaaaa-qaalq-cai");
+                setArea("chat");
+              }}
+              color={red}
+              text={"Daisy"}
+            ></Button>
+          </div>
+          <div className="nav-btn">
+            <Button
+              onClick={() => {
+                setUser("cpmcr-yeaaa-aaaaa-qaala-cai");
+                setArea("chat");
+              }}
+              color={yellow}
+              text={"Orry"}
+            ></Button>
+          </div>
         </div>
         <div className="right">
           {area === "home" && <h1 className="title">Home</h1>}
@@ -66,7 +87,9 @@ function App() {
           {area === "latest" && <h1 className="title">Latest</h1>}
           {area === "faq" && <h1 className="title">FAQ</h1>}
           {area === "feedback" && <h1 className="title">Feedback</h1>}
-          {area === "chat" && <OpenChatFrame path={"/user"} />}
+          {area === "chat" && (
+            <OpenChatFrame path={user ? `/user/${user}` : "/user"} />
+          )}
         </div>
       </div>
     </>

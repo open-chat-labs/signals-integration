@@ -10,6 +10,7 @@ function initialiseOpenChatFrame(
   return initialise(iframe, {
     targetOrigin: "http://localhost:5001",
     initialPath: path,
+    onUserIdentified: openChatUserSignedIn,
     theme: {
       name: "signals",
       base: "light",
@@ -24,6 +25,10 @@ function initialiseOpenChatFrame(
 type Props = {
   path: string;
 };
+
+function openChatUserSignedIn(userId: string) {
+  console.log(`OpenChat user signed in: ${userId}`);
+}
 
 function OpenChatFrame({ path }: Props) {
   // capture a reference to the iframe so that we can pass it into the xframe library
