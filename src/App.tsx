@@ -7,6 +7,7 @@ import { powderBlue, red, yellow } from "./colors";
 function App() {
   const [area, setArea] = React.useState("home");
   const [user, setUser] = React.useState<string | undefined>(undefined);
+  const [logout, setLogout] = React.useState<boolean>(false);
   return (
     <>
       <div className="header">
@@ -80,6 +81,16 @@ function App() {
               text={"Orry"}
             ></Button>
           </div>
+          <div className="nav-btn">
+            <Button
+              onClick={() => {
+                setLogout(true);
+                setArea("chat");
+              }}
+              color={powderBlue}
+              text={"Logout Chat"}
+            ></Button>
+          </div>
         </div>
         <div className="right">
           {area === "home" && <h1 className="title">Home</h1>}
@@ -88,7 +99,10 @@ function App() {
           {area === "faq" && <h1 className="title">FAQ</h1>}
           {area === "feedback" && <h1 className="title">Feedback</h1>}
           {area === "chat" && (
-            <OpenChatFrame path={user ? `/user/${user}` : "/user"} />
+            <OpenChatFrame
+              logout={logout}
+              path={user ? `/user/${user}` : "/user"}
+            />
           )}
         </div>
       </div>

@@ -24,13 +24,14 @@ function initialiseOpenChatFrame(
 
 type Props = {
   path: string;
+  logout: boolean;
 };
 
 function openChatUserSignedIn(userId: string) {
   console.log(`OpenChat user signed in: ${userId}`);
 }
 
-function OpenChatFrame({ path }: Props) {
+function OpenChatFrame({ path, logout }: Props) {
   // capture a reference to the iframe so that we can pass it into the xframe library
   const iframe = useRef<HTMLIFrameElement>(null);
 
@@ -38,6 +39,12 @@ function OpenChatFrame({ path }: Props) {
   const [client, setClient] = useState<Promise<OpenChatXFrame> | undefined>(
     undefined
   );
+
+  useEffect(() => {
+    if (logout && client !== undefined) {
+      client.then((c) => c.logout());
+    }
+  }, [logout, client]);
 
   // use an effect hook to initialise the iframe
   useEffect(() => {
